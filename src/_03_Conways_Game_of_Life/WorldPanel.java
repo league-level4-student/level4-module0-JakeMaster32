@@ -97,15 +97,20 @@ Cell [][]cell;
 	public void step() {
 		//7. iterate through cells and fill in the livingNeighbors array
 		// . using the getLivingNeighbors method.
+		int[][] livingNeighbors = new int[cellsPerRow][cellsPerRow];
 		for (int x = 0; x<cell.length; x++) {
 			for (int y = 0; y<cell[x].length; y++) {
-				int[][] livingNeighbors = new int[cellsPerRow][cellsPerRow];
+			livingNeighbors[x][y] = getLivingNeighbors(x,y);
 			}
 		}
 		
 		
 		//8. check if each cell should live or die
-	
+		for (int x = 0; x<cell.length; x++) {
+			for (int y = 0; y<cell[x].length; y++) {
+		cell[x][y].liveOrDie(livingNeighbors[x][y]);
+			}
+		}
 		
 		
 		
@@ -117,7 +122,32 @@ Cell [][]cell;
 	//   living neighbors there are of the 
 	//   cell identified by x and y
 	public int getLivingNeighbors(int x, int y){
-		return 0;
+		int counter = 0;
+		if (x<49 && cell[x+1][y].isAlive == true) {
+			counter++;
+		}
+		if (x>0 && cell[x-1][y].isAlive == true) {
+			counter++;
+		}
+		if (y<49 && cell[x][y+1].isAlive == true) {
+			counter++;
+		}
+		if (y>0 && cell[x][y-1].isAlive == true) {
+			counter++;
+		}
+		if (x<49 && y<49 && cell[x+1][y+1].isAlive == true) {
+			counter++;
+		}
+		if (x>0 && y>0 && cell[x-1][y-1].isAlive == true) {
+			counter++;
+		}
+		if (x>0 && y<49 && cell[x-1][y+1].isAlive == true) {
+			counter++;
+		}
+		if (x<49 && y>0 && cell[x+1][y-1].isAlive == true) {
+			counter++;
+		}
+		return counter;
 	}
 
 	@Override
@@ -142,6 +172,12 @@ Cell [][]cell;
 		//10. Use e.getX() and e.getY() to determine
 		//    which cell is clicked. Then toggle
 		//    the isAlive variable for that cell.
+		if (cell[e.getX()/cellSize][e.getY()/cellSize].isAlive == true) {
+			cell[e.getX()/cellSize][e.getY()/cellSize].isAlive = false;
+		}
+		else {
+			cell[e.getX()/cellSize][e.getY()/cellSize].isAlive = true;
+		}
 		
 		
 		
