@@ -12,7 +12,7 @@ Cell [][] cell;
 		this.width = w;
 		this.height = h;
 
-		//2. Initialize the cells using the width and height varibles
+		//2. Initialize the cells using the width and height variables
 cell = new Cell[width][height];
 		//3. Iterated through each cell and initialize it
 		//   using i and j as the location
@@ -27,10 +27,7 @@ cell = new Cell[width][height];
 	public void draw(Graphics g) {
 		for (int i = 0; i < cell.length; i++) {
 			for (int j = 0; j<cell[i].length; j++) {
-				g.setColor(Color.BLACK);
-				g.drawRect(i, j, width, height);
-				g.setColor(Color.GREEN);
-				g.fillRect(i, j, width, height);
+				cell[i][j].draw(g);
 				
 			}
 		}
